@@ -1,6 +1,6 @@
 import java.io.IOException;
 
-class ParserDriver {
+public class ParserDriver {
     public static void main(String[] args) {
         CalculatorParser p = new CalculatorParser();
 

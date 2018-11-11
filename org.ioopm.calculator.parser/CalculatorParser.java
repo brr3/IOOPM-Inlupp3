@@ -1,5 +1,6 @@
 package org.ioopm.calculator.parser;
 
+import org.ioopm.calculator.ast.SymbolicExpression;
 import java.io.StreamTokenizer;
 import java.io.IOException;
 import java.io.BufferedReader;
