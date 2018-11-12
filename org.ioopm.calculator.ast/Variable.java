@@ -7,8 +7,5 @@ public class Variable extends Atom {
         this.identifier = identifier;
     }
 
-    public String getName() {
-        throw new RuntimeException("getname() called on expression with no operator");
-    }
 
 }

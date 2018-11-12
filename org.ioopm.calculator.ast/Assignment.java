@@ -8,8 +8,4 @@ public class Assignment extends Binary {
         super(lhs, rhs);
     }
 
-    public String getName() {
-        throw new RuntimeException("getname() called on expression with no operator");
-    }
-
 }
