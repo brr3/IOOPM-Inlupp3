@@ -1,8 +1,8 @@
 all:
-    javac -d classes *.java
+	javac -d org.ioopm.calculator.ast/classes *.java
 
 run:
-    java -cp classes org.ioopm.calculator.Calculator
+	java -cp classes org.ioopm.calculator.Calculator
 
 clean:
-    rm -rf classes
+	rm -rf classes
