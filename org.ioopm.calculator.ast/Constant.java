@@ -11,4 +11,7 @@ public class Constant extends Atom {
         return true;
     }
 
+    public double getValue() {
+        return this.value;
+    }
 }
