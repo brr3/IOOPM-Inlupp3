@@ -8,4 +8,12 @@ public class Assignment extends Binary {
         super(lhs, rhs);
     }
 
+    public String getName() {
+        return "=";
+    }
+
+    public int getPriority() {
+        return 0;
+    }
+
 }

@@ -14,6 +14,4 @@ public class Sin extends Unary {
         return "sin";
     }
 
-
-
 }

@@ -10,7 +10,14 @@ public abstract class Binary extends SymbolicExpression {
     }
 
     public String getName() {
-        throw new RuntimeException("getname() called on expression with no operator");
+        throw new RuntimeException("getName() called on expression with no operator");
     }
 
-}
+    public String toString() {
+        if (this.lhs.getPriority() < this.getPriority()) {
+            return "(" + this.lhs.toString() + ") " + this.getName() + " " + this.rhs.toString();
+          } else {
+            return this.lhs.toString() + " " + this.getName() + " " + this.rhs.toString();
+          }
+      }
+  }
