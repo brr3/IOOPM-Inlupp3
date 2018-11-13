@@ -7,7 +7,7 @@ public abstract class SymbolicExpression {
     }
 
     public String getName() {
-        throw new RuntimeException("getname() called on expression with no operator");
+        throw new RuntimeException("getName() called on expression with no operator");
     }
 
     public int getPriority() {
@@ -16,5 +16,9 @@ public abstract class SymbolicExpression {
 
     public double getValue() {
         throw new RuntimeException("getValue() called on an expression which is not a constant");
+    }
+
+    public SymbolicExpression eval() {
+        return (new Addition(new Constant(37), new Constant(5)));
     }
 }

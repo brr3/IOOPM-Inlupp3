@@ -10,6 +10,15 @@ public class Test {
         }
     }
 
+    public static void testEvaluating(SymbolicExpression expected, SymbolicExpression e) {
+        //SymbolicExpression r = e.eval();
+        if (e.equals(expected)) {
+            System.out.println("Passed: " + e);
+        } else {
+            System.out.println("Error: expected '" + expected + "' but got '" + e + "'");
+        }
+    }
+
     public static void main(String[] args) {
         /*~ Test 1 ~*/
         Constant c1 = new Constant(5);
@@ -25,7 +34,7 @@ public class Test {
         Addition a2 = new Addition(c2, v1);
         Assignment f = new Assignment(a2, v2);
 
-        testPrinting("2.0 + x = y", f);
+        testPrinting("2.0 + x = y", f); // TODO: Result should be 2.0 + x
 
         /*~ Test 3 ~*/
         testPrinting("5.0", c1);
@@ -50,5 +59,13 @@ public class Test {
         Assignment j = new Assignment(g, v2);
 
         testPrinting("sin z + 4.0 * a - 5.0 * (4.0 + t) = x = y", j);
+
+        SymbolicExpression z1 = new Addition(new Constant(6), new Constant(37));
+        SymbolicExpression z2 = new Addition(new Constant(37), new Constant(5));
+        testEvaluating(z1, z2);
+
+        SymbolicExpression z3 = new Multiplication(new Sin(new Constant(6)), new Constant(37));
+        SymbolicExpression z4 = new Multiplication(new Constant(37), new Sin(new Constant(6)));
+        testEvaluating(z3, z4);
     }
 }

@@ -19,4 +19,16 @@ public class Constant extends Atom {
         return String.valueOf(this.value);
     }
 
+    public boolean equals(Object other) {
+        if (other instanceof Constant) {
+            return this.equals((Constant) other);
+        } else {
+            return false;
+        }
+    }
+
+    public boolean equals(Constant other) {
+        return this.value == other.value;
+    }
+
 }

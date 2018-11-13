@@ -4,7 +4,7 @@ public abstract class Binary extends SymbolicExpression {
   private SymbolicExpression lhs = null;
   private SymbolicExpression rhs = null;
 
-    public Binary(SymbolicExpression lhs, SymbolicExpression rhs) {
+    public Binary (SymbolicExpression lhs, SymbolicExpression rhs) {
         this.lhs = lhs;
         this.rhs = rhs;
     }
@@ -25,5 +25,20 @@ public abstract class Binary extends SymbolicExpression {
           } else {
             return this.lhs.toString() + " " + this.getName() + " " + this.rhs.toString();
           }
+      }
+
+      public boolean equals(Object other) {
+          if (other instanceof Binary) {
+              return this.equals((Binary) other);
+          } else {
+              return false;
+          }
+      }
+
+      public boolean equals(Binary other) {
+          boolean sameOperator = this.getName().equals(other.getName());
+          boolean lhsExists = this.lhs.toString().equals(other.lhs.toString()) || this.lhs.toString().equals(other.rhs.toString());
+          boolean rhsExists = this.rhs.toString().equals(other.lhs.toString()) || this.rhs.toString().equals(other.rhs.toString());
+          return sameOperator && lhsExists && rhsExists;
       }
   }
