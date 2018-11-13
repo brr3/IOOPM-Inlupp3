@@ -30,5 +30,25 @@ public class Test {
         /*~ Test 3 ~*/
         testPrinting("5.0", c1);
         testPrinting("5.0 + x", a1);
+
+        Variable v3 = new Variable("z");
+        Variable v4 = new Variable("a");
+        Variable v5 = new Variable("t");
+        Constant c3 = new Constant(4);
+
+        Sin s = new Sin(v3);
+        Multiplication m2 = new Multiplication(c3, v4);
+        Addition a4 = new Addition(c3, v5);
+
+        Addition a3 = new Addition(s, m2);
+        Multiplication m3 = new Multiplication(c1, a4);
+
+        Subtraction s1 = new Subtraction(a3, m3);
+
+        Assignment g = new Assignment(s1, v1);
+
+        Assignment j = new Assignment(g, v2);
+
+        testPrinting("sin z + 4.0 * a - 5.0 * (4.0 + t) = x = y", j);
     }
 }
