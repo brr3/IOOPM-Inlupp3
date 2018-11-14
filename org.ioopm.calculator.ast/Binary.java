@@ -41,4 +41,13 @@ public abstract class Binary extends SymbolicExpression {
           boolean rhsExists = this.rhs.toString().equals(other.lhs.toString()) || this.rhs.toString().equals(other.rhs.toString());
           return sameOperator && lhsExists && rhsExists;
       }
+
+      public SymbolicExpression getLhs() {
+          return this.lhs;
+      }
+
+      public SymbolicExpression getRhs() {
+          return this.rhs;
+      }
+
   }

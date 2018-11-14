@@ -18,7 +18,5 @@ public abstract class SymbolicExpression {
         throw new RuntimeException("getValue() called on an expression which is not a constant");
     }
 
-    public SymbolicExpression eval() {
-        return (new Addition(new Constant(37), new Constant(5)));
-    }
+    public abstract SymbolicExpression eval();
 }

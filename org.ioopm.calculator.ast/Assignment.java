@@ -1,10 +1,8 @@
 package org.ioopm.calculator.ast;
 
 public class Assignment extends Binary {
-    private SymbolicExpression lhs = null;
-    private Variable rhs = null;
 
-    public Assignment(SymbolicExpression lhs, Variable rhs) {
+    public Assignment(SymbolicExpression lhs, SymbolicExpression rhs) {
         super(lhs, rhs);
     }
 
@@ -14,6 +12,15 @@ public class Assignment extends Binary {
 
     public int getPriority() {
         return 0;
+    }
+
+    public SymbolicExpression eval() {
+        SymbolicExpression lhs = this.getLhs().eval();
+        if (lhs.isConstant()) {
+            return new Constant(lhs.getValue());
+        } else {
+            return new Assignment(lhs, this.getRhs());
+        }
     }
 
 }

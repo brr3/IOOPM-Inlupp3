@@ -20,7 +20,11 @@ public class Variable extends Atom {
     }
 
     public boolean equals(Variable other) {
-        return this.identifier.equals(other);
+        return this.identifier.equals(other.identifier);
+    }
+
+    public SymbolicExpression eval() {
+        return new Variable(this.identifier);
     }
 
 }

@@ -31,4 +31,8 @@ public class Constant extends Atom {
         return this.value == other.value;
     }
 
+    public SymbolicExpression eval() {
+        return new Constant(this.value);
+    }
+
 }

@@ -1,14 +1,14 @@
 package org.ioopm.calculator.ast;
 
 public abstract class Unary extends SymbolicExpression {
-  private SymbolicExpression lhs = null;
+  private SymbolicExpression arg = null;
 
-    public Unary(SymbolicExpression lhs) {
-        this.lhs = lhs;
+    public Unary(SymbolicExpression arg) {
+        this.arg = arg;
     }
 
     public String toString() {
-        return this.getName() + " " + this.lhs.toString();
+        return this.getName() + " " + this.arg.toString();
     }
 
     public boolean equals(Object other) {
@@ -21,8 +21,12 @@ public abstract class Unary extends SymbolicExpression {
 
     public boolean equals(Unary other) {
         boolean sameOperator = this.getName().equals(other.getName());
-        boolean sameArgument = this.lhs.getName().equals(other.lhs.getName());
+        boolean sameArgument = this.arg.getName().equals(other.arg.getName());
         return sameOperator && sameArgument;
+    }
+
+    public SymbolicExpression getArg() {
+        return this.arg;
     }
 
 }
