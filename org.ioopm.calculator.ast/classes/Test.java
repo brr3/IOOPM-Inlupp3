@@ -78,5 +78,11 @@ public class Test {
         SymbolicExpression z6 = new Constant(0.9999999999999999);
         testEvaluating(z6, z5);
 
+        /*~ Test 4 Evaluating ~*/
+        SymbolicExpression z7 = new Multiplication(new Sin(new Constant(30)), new Constant(2));
+        SymbolicExpression a10 = new Assignment(z5, new Variable("x"));
+        SymbolicExpression z8 = new Constant(0.9999999999999999);
+        testEvaluating(z8, a10);
+
     }
 }
