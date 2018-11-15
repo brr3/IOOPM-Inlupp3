@@ -11,7 +11,7 @@ public class Exp extends Unary {
     }
 
     public SymbolicExpression eval() {
-        SymbolicExpression arg = this.getArg().eval();
+        SymbolicExpression arg = this.arg.eval();
         if (arg.isConstant()) {
           return new Constant(Math.exp(arg.getValue()));
         } else {

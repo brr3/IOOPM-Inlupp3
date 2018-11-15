@@ -15,11 +15,11 @@ public class Assignment extends Binary {
     }
 
     public SymbolicExpression eval() {
-        SymbolicExpression lhs = this.getLhs().eval();
+        SymbolicExpression lhs = this.lhs.eval();
         if (lhs.isConstant()) {
             return new Constant(lhs.getValue());
         } else {
-            return new Assignment(lhs, this.getRhs());
+            return new Assignment(lhs, this.rhs);
         }
     }
 
