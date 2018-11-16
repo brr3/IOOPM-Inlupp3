@@ -1,6 +1,10 @@
 package org.ioopm.calculator.ast;
 
+import java.util.HashMap;
+
 public abstract class SymbolicExpression {
+
+    public static class Environment extends HashMap<Variable, SymbolicExpression> {}
 
     public boolean isConstant() {
         return false;
@@ -18,5 +22,5 @@ public abstract class SymbolicExpression {
         throw new RuntimeException("getValue() called on an expression which is not a constant");
     }
 
-    public abstract SymbolicExpression eval();
+    public abstract SymbolicExpression eval(Environment vars);
 }

@@ -10,8 +10,8 @@ public class Sin extends Unary {
         return "sin";
     }
 
-    public SymbolicExpression eval() {
-        SymbolicExpression arg = this.arg.eval();
+    public SymbolicExpression eval(Environment vars) {
+        SymbolicExpression arg = this.arg.eval(vars);
         if (arg.isConstant()) {
             return new Constant(Math.sin(Math.toRadians(arg.getValue())));
         } else {

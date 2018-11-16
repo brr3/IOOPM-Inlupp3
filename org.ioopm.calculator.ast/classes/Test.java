@@ -1,4 +1,5 @@
 import org.ioopm.calculator.ast.*;
+import java.util.HashMap;
 
 public class Test {
 
@@ -10,16 +11,7 @@ public class Test {
         }
     }
 
-    public static void testEvaluating(SymbolicExpression expected, SymbolicExpression e) {
-        SymbolicExpression r = e.eval();
-        if (r.equals(expected)) {
-            System.out.println("Passed: " + e);
-        } else {
-            System.out.println("Error: expected '" + expected + "' but got '" + r + "'");
-        }
-    }
-
-    public static void main(String[] args) {
+    public static void printTests() {
         /*~ Test 1 Printing ~*/
         Constant c1 = new Constant(5);
         Constant c2 = new Constant(2);
@@ -62,27 +54,52 @@ public class Test {
         Assignment j = new Assignment(g, v2);
 
         testPrinting("sin z + 4.0 * a - 5.0 * (4.0 + t) = x = y", j);
+    }
 
+    public static void testEvaluating(SymbolicExpression expected, SymbolicExpression e, SymbolicExpression.Environment vars) {
+        SymbolicExpression r = e.eval(vars);
+        if (r.equals(expected)) {
+            System.out.println("Passed: " + e);
+        } else {
+            System.out.println("Error: expected '" + expected + "' but got '" + r + "'");
+        }
+    }
+
+    public static void evalTests() {
         /*~ Test 1 Evaluating ~*/
-        SymbolicExpression z1 = new Addition(new Constant(5), new Constant(37));
-        SymbolicExpression z2 = new Constant(42);
-        testEvaluating(z2, z1);
+        SymbolicExpression.Environment vars = new SymbolicExpression.Environment();
+        SymbolicExpression a1 = new Addition(new Constant(5), new Constant(37));
+        SymbolicExpression c1 = new Constant(42);
+        testEvaluating(c1, a1, vars);
 
         /*~ Test 2 Evaluating ~*/
-        SymbolicExpression z3 = new Subtraction(new Constant(6), new Variable("x"));
-        SymbolicExpression z4 = new Subtraction(new Constant(6), new Variable("x"));
-        testEvaluating(z4, z3);
+        vars = new SymbolicExpression.Environment();
+        SymbolicExpression s1 = new Subtraction(new Constant(6), new Variable("x"));
+        SymbolicExpression s2 = new Subtraction(new Constant(6), new Variable("x"));
+        testEvaluating(s2, s1, vars);
 
         /*~ Test 3 Evaluating ~*/
-        SymbolicExpression z5 = new Multiplication(new Sin(new Constant(30)), new Constant(2));
-        SymbolicExpression z6 = new Constant(0.9999999999999999);
-        testEvaluating(z6, z5);
+        vars = new SymbolicExpression.Environment();
+        SymbolicExpression m1 = new Multiplication(new Sin(new Constant(30)), new Constant(2));
+        SymbolicExpression c2 = new Constant(0.9999999999999999);
+        testEvaluating(c2, m1, vars);
 
         /*~ Test 4 Evaluating ~*/
-        SymbolicExpression z7 = new Multiplication(new Sin(new Constant(30)), new Constant(2));
-        SymbolicExpression a10 = new Assignment(z5, new Variable("x"));
-        SymbolicExpression z8 = new Constant(0.9999999999999999);
-        testEvaluating(z8, a10);
+        vars = new SymbolicExpression.Environment();
+        SymbolicExpression as1 = new Assignment(m1, new Variable("x"));
+        SymbolicExpression c3 = new Constant(0.9999999999999999);
+        testEvaluating(c3, as1, vars);
 
+        /*~ Test 5 Evaluating ~*/
+        vars = new SymbolicExpression.Environment();
+        SymbolicExpression x = new Variable("x");
+        SymbolicExpression as2 = new Assignment(new Constant(8), x);
+        vars.put(new Variable("x"), new Constant(8));
+        testEvaluating(new Constant(8), x, vars);
+    }
+
+    public static void main(String[] args) {
+      printTests();
+      evalTests();
     }
 }

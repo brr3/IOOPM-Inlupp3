@@ -14,9 +14,9 @@ public class Subtraction extends Binary {
         return 50;
     }
 
-    public SymbolicExpression eval() {
-        SymbolicExpression lhs = this.lhs.eval();
-        SymbolicExpression rhs = this.rhs.eval();
+    public SymbolicExpression eval(Environment vars) {
+        SymbolicExpression lhs = this.lhs.eval(vars);
+        SymbolicExpression rhs = this.rhs.eval(vars);
         if (lhs.isConstant() && rhs.isConstant()) {
             return new Constant(lhs.getValue() - rhs.getValue());
         } else if (lhs.isConstant()) {

@@ -10,8 +10,8 @@ public class Log extends Unary {
         return "log";
     }
 
-    public SymbolicExpression eval() {
-        SymbolicExpression arg = this.arg.eval();
+    public SymbolicExpression eval(Environment vars) {
+        SymbolicExpression arg = this.arg.eval(vars);
         if (arg.isConstant()) {
           return new Constant(Math.log(arg.getValue()));
         } else {
