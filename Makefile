@@ -1,8 +1,12 @@
 all:
-	javac -d org.ioopm.calculator.ast/classes org.ioopm.calculator.ast/*.java
+	javac -d classes org.ioopm.calculator.ast/*.java
+	javac -d classes *.java
 
 run:
 	java -cp classes org.ioopm.calculator.Calculator
 
+test:
+	java -cp classes Test
+
 clean:
-	rm -rf org.ioopm.calculator.ast/classes
+	rm -rf classes
