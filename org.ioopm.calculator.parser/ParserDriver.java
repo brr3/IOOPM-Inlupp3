@@ -1,3 +1,5 @@
+package org.ioopm.calculator.parser;
+
 import org.ioopm.calculator.parser.CalculatorParser;
 import java.io.IOException;
 

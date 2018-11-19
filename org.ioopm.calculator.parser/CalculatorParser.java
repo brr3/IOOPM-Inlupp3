@@ -1,4 +1,6 @@
-import org.ioopm.calculator.parser.SymbolicExpression;
+package org.ioopm.calculator.parser;
+
+import org.ioopm.calculator.ast.*;
 import java.io.StreamTokenizer;
 import java.io.StringReader;
 
@@ -80,25 +82,36 @@ public class CalculatorParser {
 
     public SymbolicExpression unary() {
 
+        SymbolicExpression result;
+
         if (this.st.nextToken().TT_WORD) {
             String parameter = this.st.sval;
         } else {
             Double parameter = this.st.nval;
         }
 
-        this.st.pushBack;
+        this.st.pushBack();
 
         String unaryOperation = this.st.sval;
         if (unaryOperation = "sin") {
-            return new SymbolicExpression result = ("Sin", parameter)
-        } else if (unaryOperation = "cos") {
-            return new SymbolicExpression result = ("cos", parameter)
-        } else if (unaryOperation = "log") {
-            return new SymbolicExpression result = ("log", parameter)
-        } else if (unaryOperation = "^") {
-            return new SymbolicExpression result = ("^", parameter)
-        } else if (unaryOperation = "-") {
-            return new SymbolicExpression result = ("-", parameter)
+            result = new SymbolicExpression("Sin", parameter);
         }
+
+        else if (unaryOperation = "cos") {
+            result = new SymbolicExpression("Cos", parameter);
+        }
+
+        else if (unaryOperation = "log") {
+            result = new SymbolicExpression("Log", parameter);
+        }
+
+        else if (unaryOperation = "^") {
+            result = new SymbolicExpression ("Exp", parameter);
+        }
+
+        else if (unaryOperation = "-") {
+            result = new SymbolicExpression ("Neg", parameter);
+        }
+        return result;
     }
 }
