@@ -1,5 +1,4 @@
 all:
-	javac -d classes org.ioopm.calculator.ast/*.java
 	javac -d classes *.java
 
 run:
@@ -7,6 +6,9 @@ run:
 
 test:
 	java -cp classes Test
+
+gitadd:
+	git add *.java Makefile 
 
 clean:
 	rm -rf classes
