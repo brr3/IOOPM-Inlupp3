@@ -28,19 +28,15 @@ public class CalculatorParser {
             if(this.st.nextToken() != ')') {
                 throw new RuntimeException();
             }
-        }
-
-        else if (this.st.ttype == this.st.TT_WORD) {
+        } else if (this.st.ttype == this.st.TT_WORD) {
             if (isUnary()) {
                 result = unary();
             } else {
                 result = new Variable(this.st.sval);
             }
-        }
-        else if(this.st.ttype == this.st.TT_NUMBER) {
+        } else if(this.st.ttype == this.st.TT_NUMBER) {
             result = new Constant(this.st.nval);
-        }
-        else {
+        } else {
             throw new RuntimeException();
         }
         return result;
@@ -114,10 +110,10 @@ public class CalculatorParser {
 
         if (this.st.ttype == '=') {
             this.st.nextToken();
-            if (this.st.ttype != this.st.TT_WORD) {
+            if (this.st.ttype == this.st.TT_WORD) {
                 return result;
             } else {
-                result = new Assignment(result, assignment());
+                result = new Assignment(result, (Variable) assignment());
             }
         }
 

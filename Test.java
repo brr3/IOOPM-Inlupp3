@@ -61,7 +61,7 @@ public class Test {
     public static void testEvaluating(SymbolicExpression expected, SymbolicExpression e, SymbolicExpression.Environment vars) {
         SymbolicExpression r = e.eval(vars);
         if (r.equals(expected)) {
-            System.out.println("Passed: " + e);
+            System.out.println("Passed: " + r);
         } else {
             System.out.println("Error: expected '" + expected + "' but got '" + r + "'");
         }
@@ -94,7 +94,7 @@ public class Test {
 
         /*~ Test 5 Evaluating ~*/
         vars = new SymbolicExpression.Environment();
-        SymbolicExpression x = new Variable("x");
+        Variable x = new Variable("x");
         SymbolicExpression as2 = new Assignment(new Constant(8), x);
         vars.put(new Variable("x"), new Constant(8));
         testEvaluating(new Constant(8), x, vars);

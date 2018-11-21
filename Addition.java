@@ -21,8 +21,10 @@ public class Addition extends Binary {
             return new Constant(lhs.getValue() + rhs.getValue());
         } else if (lhs.isConstant()) {
             return new Addition(new Constant(lhs.getValue()), new Variable(rhs.toString()));
-        } else {
+        } else if (rhs.isConstant()) {
             return new Addition(new Variable(lhs.toString()), new Constant(rhs.getValue()));
+        } else {
+            return new Addition(new Variable(lhs.toString()), new Variable(rhs.toString()));
         }
     }
 

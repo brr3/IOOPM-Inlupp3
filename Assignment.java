@@ -1,9 +1,10 @@
 package org.ioopm.calculator.ast;
 
 public class Assignment extends Binary {
+    private Variable rhs;
 
-    public Assignment(SymbolicExpression lhs, SymbolicExpression rhs) {
-        super(lhs, rhs);
+    public Assignment(SymbolicExpression lhs, Variable rhs) {
+        super(lhs, (SymbolicExpression) rhs);
     }
 
     public String getName() {

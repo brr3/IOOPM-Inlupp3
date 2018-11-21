@@ -7,13 +7,14 @@ import java.io.IOException;
 public class ParserDriver {
     public static void main(String[] args) {
         CalculatorParser p = new CalculatorParser();
+        SymbolicExpression.Environment vars = new SymbolicExpression.Environment();
 
         System.out.println("Welcome to the parser!");
         System.out.print("Please enter an expression: ");
 
         try {
             SymbolicExpression result = p.parse();
-            System.out.println("result: " + result);
+            System.out.println("result: " + result.eval(vars));
         } catch(SyntaxErrorException e) {
             System.out.print("Syntax Error: ");
             System.out.println(e.getMessage());
