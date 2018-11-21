@@ -48,21 +48,20 @@ public class CalculatorParser {
 
     public SymbolicExpression unary() throws IOException {
         SymbolicExpression result;
-        String currentSval = this.st.sval;
 
-        if (currentSval == "sin") {
+        if (this.st.sval.equals("sin")) {
             result = new Sin(primary());
         }
-        else if (currentSval == "cos") {
+        else if (this.st.sval.equals("cos")) {
             result = new Cos(primary());
         }
-        else if (currentSval == "log") {
+        else if (this.st.sval.equals("log")) {
             result = new Log(primary());
         }
-        else if (currentSval == "^") { //dessa två suger röv
+        else if (this.st.sval.equals("^")) { //dessa två suger röv
             result = new Exp(primary());
         }
-        else if (currentSval == "-") { // asså den här också
+        else if (this.st.sval.equals("-")) { // asså den här också
             result = new Negation(primary());
         }
         else {
@@ -106,7 +105,7 @@ public class CalculatorParser {
     }
 
     private boolean isUnary() {
-        return this.st.sval == "sin" || this.st.sval == "cos" || this.st.sval == "^" || this.st.sval == "-" || this.st.sval == "log";
+        return this.st.sval.equals("sin") || this.st.sval.equals("cos") || this.st.sval.equals("^") || this.st.sval.equals("-") || this.st.sval.equals("log");
     }
 
     public SymbolicExpression assignment() throws IOException {
