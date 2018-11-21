@@ -15,7 +15,6 @@ public class CalculatorParser {
     public CalculatorParser() {
         this.st.eolIsSignificant(true);
         this.st.ordinaryChar('/');
-        this.st.ordinaryChar('-');
     }
 
     public SymbolicExpression primary() throws IOException {
@@ -42,6 +41,10 @@ public class CalculatorParser {
         return result;
     }
 
+    private boolean isUnary() {
+        return this.st.sval.equals("sin") || this.st.sval.equals("cos") || this.st.sval.equals("exp") || this.st.sval.equals("-") || this.st.sval.equals("log");
+    }
+
     public SymbolicExpression unary() throws IOException {
         SymbolicExpression result;
 
@@ -54,10 +57,10 @@ public class CalculatorParser {
         else if (this.st.sval.equals("log")) {
             result = new Log(primary());
         }
-        else if (this.st.sval.equals("^")) { //dessa två suger röv
+        else if (this.st.sval.equals("exp")) {
             result = new Exp(primary());
         }
-        else if (this.st.sval.equals("-")) { // asså den här också
+        else if (this.st.sval.equals("-")) {
             result = new Negation(primary());
         }
         else {
@@ -98,10 +101,6 @@ public class CalculatorParser {
 
         this.st.pushBack();
         return result;
-    }
-
-    private boolean isUnary() {
-        return this.st.sval.equals("sin") || this.st.sval.equals("cos") || this.st.sval.equals("^") || this.st.sval.equals("-") || this.st.sval.equals("log");
     }
 
     public SymbolicExpression assignment() throws IOException {
