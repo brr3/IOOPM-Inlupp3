@@ -9,12 +9,7 @@ public class Vars extends Command {
 
     @Override
     public boolean isCommand() {
-      return true;
-    }
-
-    @Override
-    public SymbolicExpression eval(Environment vars) {
-        return new Variable("vars");
+        return true;
     }
 
 }

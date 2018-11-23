@@ -20,9 +20,17 @@ public class Assignment extends Binary {
 
     @Override
     public SymbolicExpression eval(Environment vars) throws IllegalExpressionException {
+        System.out.println("rhs = " + this.rhs.toString());
         if (this.rhs.isNamedConstant()) {
             throw new IllegalExpressionException("Cannot redefine named constant '" + this.rhs + "'");
-        } else {
+        }
+        /*else if (this.rhs.isCommand()) {
+            throw new IllegalExpressionException("Cannot assign command '" + this.rhs + "' to a value");
+        }
+        else if (this.rhs.isConstant()) {
+            throw new IllegalExpressionException("Cannot assign a new value to constant '" + this.rhs + "'");
+        } */
+        else {
             SymbolicExpression lhs = this.lhs.eval(vars);
             vars.put(new Variable(this.rhs.toString()), lhs);
             if (lhs.isConstant()) {

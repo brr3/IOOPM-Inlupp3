@@ -14,6 +14,7 @@ public class Test {
     }
 
     public static void printTests() {
+        System.out.println("----Printing tests----");
         /*~ Test 1 Printing ~*/
         Constant c1 = new Constant(5);
         Constant c2 = new Constant(2);
@@ -28,7 +29,7 @@ public class Test {
         Addition a2 = new Addition(c2, v1);
         Assignment f = new Assignment(a2, v2);
 
-        testPrinting("2.0 + x = y", f); // TODO: Result should be 2.0 + x
+        testPrinting("2.0 + x = y", f);
 
         /*~ Test 3 Printing ~*/
         testPrinting("5.0", c1);
@@ -68,6 +69,7 @@ public class Test {
     }
 
     public static void evalTests() {
+        System.out.println("----Evaluation tests----");
         /*~ Test 1 Evaluating ~*/
         SymbolicExpression.Environment vars = new SymbolicExpression.Environment();
         SymbolicExpression a1 = new Addition(new Constant(5), new Constant(37));
@@ -99,8 +101,18 @@ public class Test {
         testEvaluating(new Constant(8), x, vars);
     }
 
+    public static void namedConstantTests() {
+        System.out.println("----Named constants tests----");
+        /*~ Test 1 Named Constants ~*/
+        SymbolicExpression.Environment vars = new SymbolicExpression.Environment();
+        SymbolicExpression nc1 = new NamedConstant("pi", Math.PI);
+        SymbolicExpression c1 = new Constant(Math.PI);
+        testEvaluating(c1, nc1, vars);
+    }
+
     public static void main(String[] args) {
-      printTests();
-      evalTests();
+        printTests();
+        evalTests();
+        namedConstantTests();
     }
 }

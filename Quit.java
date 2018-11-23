@@ -12,9 +12,4 @@ public class Quit extends Command {
         return true;
     }
 
-    @Override
-    public SymbolicExpression eval(Environment vars) {
-        return new Variable("quit");
-    }
-
 }
