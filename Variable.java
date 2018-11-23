@@ -7,10 +7,12 @@ public class Variable extends Atom {
         this.identifier = identifier;
     }
 
+    @Override
     public String toString() {
         return this.identifier;
     }
 
+    @Override
     public boolean equals(Object other) {
         if (other instanceof Variable) {
             return this.equals((Variable) other);
@@ -23,6 +25,7 @@ public class Variable extends Atom {
         return this.identifier.equals(other.identifier);
     }
 
+    @Override
     public SymbolicExpression eval(Environment vars) {
         if (vars.containsKey(new Variable(this.identifier))) {
             if (vars.get(new Variable(this.identifier)).isConstant()) {

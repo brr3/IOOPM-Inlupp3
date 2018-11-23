@@ -6,10 +6,12 @@ public class Log extends Unary {
       super(arg);
     }
 
+    @Override
     public String getName() {
         return "log";
     }
 
+    @Override
     public SymbolicExpression eval(Environment vars) {
         SymbolicExpression arg = this.arg.eval(vars);
         if (arg.isConstant()) {

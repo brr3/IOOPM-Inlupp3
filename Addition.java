@@ -6,14 +6,17 @@ public class Addition extends Binary {
         super(lhs, rhs);
     }
 
+    @Override
     public String getName() {
         return "+";
     }
 
+    @Override
     public int getPriority() {
         return 50;
     }
 
+    @Override
     public SymbolicExpression eval(Environment vars) {
         SymbolicExpression lhs = this.lhs.eval(vars);
         SymbolicExpression rhs = this.rhs.eval(vars);

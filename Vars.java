@@ -7,12 +7,9 @@ public class Vars extends Command {
         return theInstance;
     }
 
+    @Override
     public boolean isCommand() {
-      return true;
-    }
-
-    public SymbolicExpression eval(Environment vars) {
-        return new Variable("vars");
+        return true;
     }
 
 }

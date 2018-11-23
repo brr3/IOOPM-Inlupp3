@@ -6,10 +6,12 @@ public class Negation extends Unary {
         super(lhs);
     }
 
+    @Override
     public String getName() {
         return "-";
     }
 
+    @Override
     public SymbolicExpression eval(Environment vars) {
         SymbolicExpression arg = this.arg.eval(vars);
         if (arg.isConstant()) {

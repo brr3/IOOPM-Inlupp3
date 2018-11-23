@@ -7,12 +7,9 @@ public class Quit extends Command {
         return theInstance;
     }
 
+    @Override
     public boolean isCommand() {
         return true;
-    }
-
-    public SymbolicExpression eval(Environment vars) {
-        return new Variable("quit");
     }
 
 }
