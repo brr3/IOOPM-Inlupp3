@@ -1,27 +1,35 @@
 package org.ioopm.calculator.ast;
 
-public class Assignment extends Binary {
-    private Variable rhs;
+import org.ioopm.calculator.parser.IllegalExpressionException;
 
-    public Assignment(SymbolicExpression lhs, Variable rhs) {
-        super(lhs, (SymbolicExpression) rhs);
+public class Assignment extends Binary {
+
+    public Assignment(SymbolicExpression lhs, SymbolicExpression rhs) {
+        super(lhs, rhs);
     }
 
+    @Override
     public String getName() {
         return "=";
     }
 
+    @Override
     public int getPriority() {
         return 0;
     }
 
-    public SymbolicExpression eval(Environment vars) {
-        SymbolicExpression lhs = this.lhs.eval(vars);
-        vars.put(new Variable(this.rhs.toString()), lhs);
-        if (lhs.isConstant()) {
-            return new Constant(lhs.getValue());
+    @Override
+    public SymbolicExpression eval(Environment vars) throws IllegalExpressionException {
+        if (this.rhs.isNamedConstant()) {
+            throw new IllegalExpressionException("Cannot redefine named constant '" + this.rhs + "'");
         } else {
-            return new Assignment(lhs, this.rhs);
+            SymbolicExpression lhs = this.lhs.eval(vars);
+            vars.put(new Variable(this.rhs.toString()), lhs);
+            if (lhs.isConstant()) {
+                return new Constant(lhs.getValue());
+            } else {
+                return new Assignment(lhs, this.rhs);
+            }
         }
     }
 

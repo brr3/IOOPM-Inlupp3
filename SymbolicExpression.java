@@ -10,6 +10,10 @@ public abstract class SymbolicExpression {
         return false;
     }
 
+    public boolean isNamedConstant() {
+        return false;
+    }
+
     public boolean isCommand() {
       return false;
     }

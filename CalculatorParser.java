@@ -17,6 +17,10 @@ public class CalculatorParser {
         this.st.ordinaryChar('/');
     }
 
+    private boolean isUnary() {
+        return this.st.sval.equals("sin") || this.st.sval.equals("cos") || this.st.sval.equals("exp") || this.st.sval.equals("-") || this.st.sval.equals("log");
+    }
+
     public SymbolicExpression primary() throws IOException {
         this.st.nextToken();
         SymbolicExpression result;
@@ -25,24 +29,22 @@ public class CalculatorParser {
             result = assignment();
 
             if(this.st.nextToken() != ')') {
-                throw new RuntimeException();
+                throw new SyntaxErrorException();
             }
         } else if (this.st.ttype == this.st.TT_WORD) {
             if (isUnary()) {
                 result = unary();
+            } else if (Constants.namedConstants.containsKey(this.st.sval)) {
+                result = new NamedConstant(this.st.sval, Constants.namedConstants.get(this.st.sval));
             } else {
                 result = new Variable(this.st.sval);
             }
         } else if(this.st.ttype == this.st.TT_NUMBER) {
             result = new Constant(this.st.nval);
         } else {
-            throw new RuntimeException();
+            throw new SyntaxErrorException();
         }
         return result;
-    }
-
-    private boolean isUnary() {
-        return this.st.sval.equals("sin") || this.st.sval.equals("cos") || this.st.sval.equals("exp") || this.st.sval.equals("-") || this.st.sval.equals("log");
     }
 
     public SymbolicExpression unary() throws IOException {
@@ -64,7 +66,7 @@ public class CalculatorParser {
             result = new Negation(primary());
         }
         else {
-            throw new RuntimeException();
+            throw new SyntaxErrorException();
         }
         return result;
     }
@@ -110,9 +112,13 @@ public class CalculatorParser {
         if (this.st.ttype == '=') {
             this.st.nextToken();
             if (this.st.ttype == this.st.TT_WORD) {
-                return result;
+                if (Constants.namedConstants.containsKey(this.st.sval)) {
+                    return new Assignment(result, new NamedConstant(this.st.sval, Constants.namedConstants.get(this.st.sval)));
+                } else {
+                    return result;
+                }
             } else {
-                result = new Assignment(result, (Variable) assignment());
+                result = new Assignment(result, assignment());
             }
         }
 

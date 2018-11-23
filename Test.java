@@ -95,7 +95,6 @@ public class Test {
         /*~ Test 5 Evaluating ~*/
         vars = new SymbolicExpression.Environment();
         Variable x = new Variable("x");
-        SymbolicExpression as2 = new Assignment(new Constant(8), x);
         vars.put(new Variable("x"), new Constant(8));
         testEvaluating(new Constant(8), x, vars);
     }

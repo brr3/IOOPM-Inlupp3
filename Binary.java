@@ -9,10 +9,12 @@ public abstract class Binary extends SymbolicExpression {
         this.rhs = rhs;
     }
 
+    @Override
     public String getName() {
         throw new RuntimeException("getName() called on expression with no operator");
     }
 
+    @Override
     public String toString() {
         boolean lhsP = this.lhs.getPriority() < this.getPriority();
         boolean rhsP = this.rhs.getPriority() < this.getPriority();
@@ -25,21 +27,22 @@ public abstract class Binary extends SymbolicExpression {
           } else {
             return this.lhs.toString() + " " + this.getName() + " " + this.rhs.toString();
           }
-      }
+    }
 
-      public boolean equals(Object other) {
-          if (other instanceof Binary) {
-              return this.equals((Binary) other);
-          } else {
-              return false;
-          }
-      }
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof Binary) {
+            return this.equals((Binary) other);
+        } else {
+            return false;
+        }
+    }
 
-      public boolean equals(Binary other) {
-          boolean sameOperator = this.getName().equals(other.getName());
-          boolean lhsExists = this.lhs.toString().equals(other.lhs.toString()) || this.lhs.toString().equals(other.rhs.toString());
-          boolean rhsExists = this.rhs.toString().equals(other.lhs.toString()) || this.rhs.toString().equals(other.rhs.toString());
-          return sameOperator && lhsExists && rhsExists;
-      }
+    public boolean equals(Binary other) {
+        boolean sameOperator = this.getName().equals(other.getName());
+        boolean lhsExists = this.lhs.toString().equals(other.lhs.toString()) || this.lhs.toString().equals(other.rhs.toString());
+        boolean rhsExists = this.rhs.toString().equals(other.lhs.toString()) || this.rhs.toString().equals(other.rhs.toString());
+        return sameOperator && lhsExists && rhsExists;
+    }
 
-  }
+}

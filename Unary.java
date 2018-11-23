@@ -7,10 +7,12 @@ public abstract class Unary extends SymbolicExpression {
         this.arg = arg;
     }
 
+    @Override
     public String toString() {
         return this.getName() + " " + this.arg.toString();
     }
 
+    @Override
     public boolean equals(Object other) {
         if (other instanceof Unary) {
             return this.equals((Unary) other);
