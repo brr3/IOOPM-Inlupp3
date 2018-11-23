@@ -26,7 +26,7 @@ public class CalculatorParser {
             result = assignment();
 
             if(this.st.nextToken() != ')') {
-                throw new RuntimeException();
+                throw new SyntaxErrorException("Expected ')'");
             }
         }
 
