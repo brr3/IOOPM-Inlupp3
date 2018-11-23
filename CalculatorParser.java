@@ -15,7 +15,6 @@ public class CalculatorParser {
     public CalculatorParser() {
         this.st.eolIsSignificant(true);
         this.st.ordinaryChar('/');
-        this.st.ordinaryChar('-');
     }
 
     public SymbolicExpression primary() throws IOException {
@@ -28,22 +27,22 @@ public class CalculatorParser {
             if(this.st.nextToken() != ')') {
                 throw new SyntaxErrorException("Expected ')'");
             }
-        }
-
-        else if (this.st.ttype == this.st.TT_WORD) {
+        } else if (this.st.ttype == this.st.TT_WORD) {
             if (isUnary()) {
                 result = unary();
             } else {
                 result = new Variable(this.st.sval);
             }
-        }
-        else if(this.st.ttype == this.st.TT_NUMBER) {
+        } else if(this.st.ttype == this.st.TT_NUMBER) {
             result = new Constant(this.st.nval);
-        }
-        else {
+        } else {
             throw new RuntimeException();
         }
         return result;
+    }
+
+    private boolean isUnary() {
+        return this.st.sval.equals("sin") || this.st.sval.equals("cos") || this.st.sval.equals("exp") || this.st.sval.equals("-") || this.st.sval.equals("log");
     }
 
     public SymbolicExpression unary() throws IOException {
@@ -58,10 +57,10 @@ public class CalculatorParser {
         else if (this.st.sval.equals("log")) {
             result = new Log(primary());
         }
-        else if (this.st.sval.equals("^")) { //dessa två suger röv
+        else if (this.st.sval.equals("exp")) {
             result = new Exp(primary());
         }
-        else if (this.st.sval.equals("-")) { // asså den här också
+        else if (this.st.sval.equals("-")) {
             result = new Negation(primary());
         }
         else {
@@ -104,20 +103,16 @@ public class CalculatorParser {
         return result;
     }
 
-    private boolean isUnary() {
-        return this.st.sval.equals("sin") || this.st.sval.equals("cos") || this.st.sval.equals("^") || this.st.sval.equals("-") || this.st.sval.equals("log");
-    }
-
     public SymbolicExpression assignment() throws IOException {
         SymbolicExpression result = expression();
         this.st.nextToken();
 
         if (this.st.ttype == '=') {
             this.st.nextToken();
-            if (this.st.ttype != this.st.TT_WORD) {
+            if (this.st.ttype == this.st.TT_WORD) {
                 return result;
             } else {
-                result = new Assignment(result, assignment());
+                result = new Assignment(result, (Variable) assignment());
             }
         }
 
