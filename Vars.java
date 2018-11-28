@@ -11,5 +11,4 @@ public class Vars extends Command {
     public boolean isCommand() {
         return true;
     }
-
 }
