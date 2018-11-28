@@ -12,13 +12,14 @@ public class CalculatorParser {
         this.st.eolIsSignificant(true);
         this.st.ordinaryChar('-');
         this.st.ordinaryChar('/');
+        //this.st.ordinaryChar('=');
     }
 
-    public SymbolicExpression parse() throws IOException {
+    public SymbolicExpression parse() throws IOException, SyntaxErrorException {
         return statement();
     }
 
-    public SymbolicExpression statement() throws IOException {
+    public SymbolicExpression statement() throws IOException, SyntaxErrorException {
         SymbolicExpression result;
         this.st.nextToken();
 
@@ -31,7 +32,7 @@ public class CalculatorParser {
         return result;
     }
 
-    public SymbolicExpression command() throws IOException {
+    public SymbolicExpression command() throws IOException, SyntaxErrorException {
         SymbolicExpression result;
 
         if (this.st.sval.equals("quit")) {
@@ -42,32 +43,32 @@ public class CalculatorParser {
         return result;
     }
 
-    public SymbolicExpression assignment() throws IOException {
+    public SymbolicExpression assignment() throws IOException, SyntaxErrorException {
         SymbolicExpression result = expression();
         this.st.nextToken();
 
         while (this.st.ttype == '=') {
             this.st.nextToken();
             if (this.st.ttype == this.st.TT_WORD) {
-                if (Constants.namedConstants.containsKey(this.st.sval)) {
-                    result = new Assignment(result, new NamedConstant(this.st.sval, Constants.namedConstants.get(this.st.sval)));
+                if (this.st.sval.equals("quit") || this.st.sval.equals("vars") || this.st.sval.equals("clear")) {
+                    throw new IllegalExpressionException("Cannot assign command '" + this.st.sval + "' to a value");
                 }
-                else if (!this.st.sval.equals("quit") && !this.st.sval.equals("vars") && !this.st.sval.equals("clear")) {
-                    this.st.nextToken();
+                else if (Constants.namedConstants.containsKey(this.st.sval)) {
+                    throw new IllegalExpressionException("Cannot redefine named constant '" + this.st.sval + "'");
                 }
                 else {
-                    throw new SyntaxErrorException("Cannot assign command '" + this.st.sval + "' to a value");
+                    this.st.nextToken();
                 }
             }
             else {
-                throw new SyntaxErrorException("Cannot assign a new value to a constant");
+                throw new IllegalExpressionException("Cannot assign a new value to a constant");
             }
         }
         this.st.pushBack();
         return result;
     }
 
-    public SymbolicExpression expression() throws IOException {
+    public SymbolicExpression expression() throws IOException, SyntaxErrorException {
         SymbolicExpression result = term();
         this.st.nextToken();
 
@@ -84,7 +85,7 @@ public class CalculatorParser {
         return result;
     }
 
-    public SymbolicExpression term() throws IOException {
+    public SymbolicExpression term() throws IOException, SyntaxErrorException {
         SymbolicExpression result = primary();
         this.st.nextToken();
 
@@ -101,7 +102,7 @@ public class CalculatorParser {
         return result;
     }
 
-    public SymbolicExpression unary() throws IOException {
+    public SymbolicExpression unary() throws IOException, SyntaxErrorException {
         SymbolicExpression result;
 
         if (this.st.sval.equals("sin")) {
@@ -125,19 +126,19 @@ public class CalculatorParser {
         return result;
     }
 
-    public SymbolicExpression primary() throws IOException {
+    public SymbolicExpression primary() throws IOException, SyntaxErrorException {
         SymbolicExpression result;
         this.st.nextToken();
 
         if (this.st.ttype == '(') {
-            result =  assignment();
+            result = assignment();
             if (this.st.nextToken() != ')') {
                 throw new SyntaxErrorException("Expected: )");
             }
         }
         else if (this.st.ttype == this.st.TT_WORD) {
             if (isUnary()) {
-                result =  unary();
+                result = unary();
             }
             else if (Constants.namedConstants.containsKey(this.st.sval)) {
                 result =  new NamedConstant(this.st.sval, Constants.namedConstants.get(this.st.sval));
@@ -150,10 +151,10 @@ public class CalculatorParser {
             }
         }
         else if (this.st.ttype == this.st.TT_NUMBER){
-            result =  new Constant(this.st.nval);
+            result = new Constant(this.st.nval);
         }
         else {
-            throw new SyntaxErrorException();
+            throw new SyntaxErrorException("Unexpected: '" + Character.toString((char) this.st.ttype) + "'");
         }
         return result;
     }

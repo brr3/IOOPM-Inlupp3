@@ -20,7 +20,7 @@ public class Division extends Binary {
         } else if (lhs.isConstant()) {
             return new Division(new Constant(lhs.getValue()), new Variable(rhs.toString()));
         } else {
-            return new Division(new Variable(lhs.toString()), new Constant(rhs.getValue()));
+            return new Division(new Variable("(" + lhs.toString() + ")"), new Constant(rhs.getValue()));
         }
     }
 
