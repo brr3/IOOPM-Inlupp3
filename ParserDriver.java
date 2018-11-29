@@ -39,7 +39,6 @@ public class ParserDriver {
                 System.err.println("IO Exception!");
                 continue;
             }
-        }
 
 
         /*

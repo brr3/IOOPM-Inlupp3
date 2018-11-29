@@ -18,9 +18,9 @@ public class Division extends Binary {
         if (lhs.isConstant() && rhs.isConstant()) {
             return new Constant(lhs.getValue() / rhs.getValue());
         } else if (lhs.isConstant()) {
-            return new Division(new Constant(lhs.getValue()), new Variable(rhs.toString()));
+            return new Division(new Constant(lhs.getValue()), new Variable("(" + rhs.toString() + ")"));
         } else {
-            return new Division(new Variable(lhs.toString()), new Constant(rhs.getValue()));
+            return new Division(new Variable("(" + lhs.toString() + ")"), new Constant(rhs.getValue()));
         }
     }
 }
