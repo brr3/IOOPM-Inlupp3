@@ -22,6 +22,11 @@ public class Assignment extends Binary {
     public SymbolicExpression eval(Environment vars) {
         SymbolicExpression lhs = this.lhs.eval(vars);
         vars.put(new Variable(this.rhs.toString()), lhs);
+        if (vars.containsKey(new Variable(this.rhs.toString()))) {
+            System.out.println("success");
+        } else {
+            throw new RuntimeException();
+        }
         if (lhs.isConstant()) {
             return new Constant(lhs.getValue());
         } else {

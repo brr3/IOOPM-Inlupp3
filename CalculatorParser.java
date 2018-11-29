@@ -64,6 +64,7 @@ public class CalculatorParser {
                     throw new IllegalExpressionException("Cannot redefine named constant '" + this.st.sval + "'");
                 }
                 else {
+                    result = new Assignment(result, new Variable(this.st.sval));
                     this.st.nextToken();
                 }
             }
@@ -111,8 +112,10 @@ public class CalculatorParser {
 
     public SymbolicExpression unary() throws IOException, SyntaxErrorException {
         SymbolicExpression result;
-
-        if (this.st.sval.equals("sin")) {
+        if (this.st.ttype == '-') {
+            result = new Negation(primary());
+        }
+        else if (this.st.sval.equals("sin")) {
             result = new Sin(primary());
         }
         else if (this.st.sval.equals("cos")) {
@@ -123,9 +126,6 @@ public class CalculatorParser {
         }
         else if (this.st.sval.equals("exp")) {
             result = new Exp(primary());
-        }
-        else if (this.st.sval.equals("-")) {
-            result = new Negation(primary());
         }
         else {
             throw new SyntaxErrorException("Unexpected: '" + this.st.sval + "'");
@@ -143,7 +143,7 @@ public class CalculatorParser {
                 throw new SyntaxErrorException("Expected: )");
             }
         }
-        else if (this.st.ttype == this.st.TT_WORD) {
+        else if (this.st.ttype == this.st.TT_WORD || this.st.ttype == '-' ) {
             if (isUnary()) {
                 result = unary();
             }
@@ -161,13 +161,15 @@ public class CalculatorParser {
             result = new Constant(this.st.nval);
         }
         else {
-            throw new SyntaxErrorException("Unexpected: how did i get here" + Character.toString((char) this.st.ttype) + "'");
+            throw new SyntaxErrorException("Unexpected: '" + Character.toString((char) this.st.ttype) + "'");
         }
         return result;
     }
 
     private boolean isUnary() {
-        return this.st.sval.equals("sin") || this.st.sval.equals("cos") || this.st.sval.equals("exp") || this.st.sval.equals("-") || this.st.sval.equals("log");
+        if(this.st.ttype == '-') {return true;}
+
+        return this.st.sval.equals("sin") || this.st.sval.equals("cos") || this.st.sval.equals("exp") || this.st.sval.equals("log");
     }
 
     private boolean isInvalidIdentifier() {
