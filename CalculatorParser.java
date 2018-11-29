@@ -6,16 +6,23 @@ import java.io.StringReader;
 import java.io.IOException;
 
 public class CalculatorParser {
-    private StreamTokenizer st = new StreamTokenizer(System.in);
+    private StreamTokenizer st;
+    //private StreamTokenizer st = new StreamTokenizer(System.in);
 
+    /*
     public CalculatorParser() {
         this.st.eolIsSignificant(true);
         this.st.ordinaryChar('-');
         this.st.ordinaryChar('/');
         //this.st.ordinaryChar('=');
     }
+    */
 
-    public SymbolicExpression parse() throws IOException, SyntaxErrorException {
+    public SymbolicExpression parse(String input) throws IOException, SyntaxErrorException {
+        st = new StreamTokenizer(new StringReader(input));
+        this.st.eolIsSignificant(true);
+        this.st.ordinaryChar('-');
+        this.st.ordinaryChar('/');
         return statement();
     }
 
@@ -46,7 +53,7 @@ public class CalculatorParser {
     public SymbolicExpression assignment() throws IOException, SyntaxErrorException {
         SymbolicExpression result = expression();
         this.st.nextToken();
-8
+
         while (this.st.ttype == '=') {
             this.st.nextToken();
             if (this.st.ttype == this.st.TT_WORD) {
@@ -154,7 +161,7 @@ public class CalculatorParser {
             result = new Constant(this.st.nval);
         }
         else {
-            throw new SyntaxErrorException("Unexpected: '" + Character.toString((char) this.st.ttype) + "'");
+            throw new SyntaxErrorException("Unexpected: how did i get here" + Character.toString((char) this.st.ttype) + "'");
         }
         return result;
     }

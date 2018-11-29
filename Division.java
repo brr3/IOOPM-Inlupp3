@@ -17,10 +17,8 @@ public class Division extends Binary {
         SymbolicExpression rhs = this.rhs.eval(vars);
         if (lhs.isConstant() && rhs.isConstant()) {
             return new Constant(lhs.getValue() / rhs.getValue());
-        } else if (lhs.isConstant()) {
-            return new Division(new Constant(lhs.getValue()), new Variable("(" + rhs.toString() + ")"));
         } else {
-            return new Division(new Variable("(" + lhs.toString() + ")"), new Constant(rhs.getValue()));
+            return new Division(lhs, rhs);
         }
     }
 }

@@ -13,9 +13,11 @@ public class ParserDriver {
 
         while(true) {
             System.out.print("Please enter an expression: \n");
+            SymbolicExpression result;
 
             try {
-                SymbolicExpression result = p.parse();
+                String input = System.console().readLine();
+                result = p.parse(input);
 
                 if(result.isCommand()) {
                     if (result.getName().equals("quit")) {
@@ -41,21 +43,22 @@ public class ParserDriver {
             }
 
 
-        /*
-          System.out.print("Please enter an expression: ");
+            /*
+              System.out.print("Please enter an expression: ");
 
-          try {
-          SymbolicExpression result = p.parse();
-          System.out.println("result: " + result);
-          System.out.println("result: " + result.eval(vars));
-          } catch(SyntaxErrorException e) {
-          System.out.print("Syntax Error: ");
-          System.out.println(e.getMessage());
-          } catch(IllegalExpressionException e) {
-          System.out.print("Error: ");
-          System.out.println(e.getMessage());
-          } catch(IOException e) {
-          System.err.println("IO Exception!");
-          }*/
+              try {
+              SymbolicExpression result = p.parse();
+              System.out.println("result: " + result);
+              System.out.println("result: " + result.eval(vars));
+              } catch(SyntaxErrorException e) {
+              System.out.print("Syntax Error: ");
+              System.out.println(e.getMessage());
+              } catch(IllegalExpressionException e) {
+              System.out.print("Error: ");
+              System.out.println(e.getMessage());
+              } catch(IOException e) {
+              System.err.println("IO Exception!");
+              }*/
+        }
     }
 }
