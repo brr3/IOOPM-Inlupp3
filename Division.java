@@ -23,5 +23,4 @@ public class Division extends Binary {
             return new Division(new Variable(lhs.toString()), new Constant(rhs.getValue()));
         }
     }
-
 }

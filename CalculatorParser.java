@@ -45,7 +45,7 @@ public class CalculatorParser {
     public SymbolicExpression assignment() throws IOException {
         SymbolicExpression result = expression();
         this.st.nextToken();
-
+8
         while (this.st.ttype == '=') {
             this.st.nextToken();
             if (this.st.ttype == this.st.TT_WORD) {

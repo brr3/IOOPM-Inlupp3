@@ -9,6 +9,10 @@ public class Quit extends Command {
         return theInstance;
     }
 
+    public String getName() {
+        return "quit";
+    }
+
     @Override
     public boolean isCommand() {
         return true;

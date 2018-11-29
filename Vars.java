@@ -7,6 +7,10 @@ public class Vars extends Command {
         return theInstance;
     }
 
+    public String getName() {
+        return "vars";
+    }
+
     @Override
     public boolean isCommand() {
         return true;
