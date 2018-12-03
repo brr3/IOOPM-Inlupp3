@@ -40,7 +40,6 @@ public class Variable extends Atom {
                 return v;
             }
         } else {
-            System.out.println("variable not found");
             return v;
         }
     }

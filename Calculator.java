@@ -24,10 +24,11 @@ public class Calculator {
                 if(result.isCommand()) {
                     if (result.getName().equals("quit")) {
                         break;
-                    } else if (result.getName().equals("vars")){
-                        System.out.println("vars...");
+                    } else if (result.getName().equals("vars")) {
+                        vars.forEach((k,v) -> System.out.println("key : " + k + "\tvalue : " + v));
                     } else {
-                        System.out.println("clear...");
+                        vars.clear();
+                        System.out.println("Assignments successfully cleared!");
                     }
                 } else {
                     System.out.print("parsed expression: " + result + "\n");
