@@ -7,6 +7,10 @@ public class Clear extends Command {
         return theInstance;
     }
 
+    public String getName() {
+        return "clear";
+    }
+
     @Override
     public boolean isCommand() {
         return true;

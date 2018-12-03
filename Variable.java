@@ -27,16 +27,17 @@ public class Variable extends Atom {
 
     @Override
     public SymbolicExpression eval(Environment vars) {
-        if (vars.containsKey(new Variable(this.identifier))) {
+        Variable v = new Variable(this.identifier);
+        if (vars.containsKey(v)) {
             System.out.println("variable found");
-            if (vars.get(new Variable(this.identifier)).isConstant()) {
-                    return new Constant(vars.get(new Variable(this.identifier)).getValue());
+            if (vars.get(v).isConstant()) {
+                    return new Constant(vars.get(v).getValue());
             } else {
-                return new Variable(this.identifier);
+                return v;
             }
         } else {
             System.out.println("variable not found");
-            return new Variable(this.identifier);
+            return v;
         }
     }
 }

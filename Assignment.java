@@ -21,10 +21,9 @@ public class Assignment extends Binary {
     @Override
     public SymbolicExpression eval(Environment vars) {
         SymbolicExpression lhs = this.lhs.eval(vars);
-        vars.put(new Variable(this.rhs.toString()), lhs);
-        if (vars.containsKey(new Variable(this.rhs.toString()))) {
-            System.out.println("success");
-        } else {
+        Variable v = new Variable(this.rhs.toString());
+        vars.put(v, lhs);
+        if (!vars.containsKey(v)) {
             throw new RuntimeException();
         }
         if (lhs.isConstant()) {

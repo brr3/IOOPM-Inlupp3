@@ -143,9 +143,6 @@ public class CalculatorParser {
                 result =  new NamedConstant(this.st.sval, Constants.namedConstants.get(this.st.sval));
             }
             else {
-                if(isInvalidIdentifier()) {
-                    throw new SyntaxErrorException("'quit' and 'vars' invalid identifiers");
-                }
                 result =  new Variable(this.st.sval);
             }
         }
@@ -168,7 +165,7 @@ public class CalculatorParser {
         boolean result;
 
         if (this.st.ttype == this.st.TT_WORD) {
-            result = this.st.sval.equals("quit") || this.st.sval.equals("vars");
+            result = this.st.sval.equals("quit") || this.st.sval.equals("vars") || this.st.sval.equals("clear");
         } else {
             result = false;
         }
