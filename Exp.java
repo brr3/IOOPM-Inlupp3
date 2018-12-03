@@ -8,7 +8,7 @@ public class Exp extends Unary {
 
     @Override
     public String getName() {
-        return "^";
+        return "e ^";
     }
 
     @Override
