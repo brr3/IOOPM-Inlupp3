@@ -34,8 +34,10 @@ public class CalculatorParser {
 
         if (this.st.sval.equals("quit")) {
             result = Quit.instance();
-        } else {
+        } else if (this.st.sval.equals("vars")) {
             result = Vars.instance();
+        } else {
+            result = Clear.instance();
         }
         return result;
     }

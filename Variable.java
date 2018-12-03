@@ -35,7 +35,7 @@ public class Variable extends Atom {
                 return new Variable(this.identifier);
             }
         } else {
-            System.out.println("fan också");
+            System.out.println("variable not found");
             return new Variable(this.identifier);
         }
     }
