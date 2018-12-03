@@ -13,6 +13,11 @@ public class Variable extends Atom {
     }
 
     @Override
+    public int hashCode() {
+        java.lang.String.hashCode();
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (other instanceof Variable) {
             return this.equals((Variable) other);

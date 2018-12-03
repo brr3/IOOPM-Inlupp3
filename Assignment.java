@@ -30,7 +30,7 @@ public class Assignment extends Binary {
         if (lhs.isConstant()) {
             return new Constant(lhs.getValue());
         } else {
-            return new Assignment(lhs, this.rhs);
+            return new Assignment(lhs, rhs);
         }
     }
 }
