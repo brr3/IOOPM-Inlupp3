@@ -23,13 +23,10 @@ public class Assignment extends Binary {
         SymbolicExpression lhs = this.lhs.eval(vars);
         Variable v = new Variable(this.rhs.toString());
         vars.put(v, lhs);
-        if (!vars.containsKey(v)) {
-            throw new RuntimeException();
-        }
         if (lhs.isConstant()) {
             return new Constant(lhs.getValue());
         } else {
-            return new Assignment(lhs, rhs);
+            return lhs;
         }
     }
 }

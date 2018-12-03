@@ -12,17 +12,25 @@ public class Calculator {
 
         Scanner sc = new Scanner(System.in);
 
+        System.out.println("---------------------------");
         System.out.println("Welcome to the parser!");
 
+        int expressionsEntered = 0;
+        int successfulEvals = 0;
+        int fullEvals = 0;
+
         while(true) {
-            System.out.print("Please enter an expression: \n");
+            System.out.println("---------------------------");
+            System.out.println("Please enter an expression:");
 
             try {
                 String input = sc.nextLine();
+                ++expressionsEntered;
                 SymbolicExpression result = p.parse(input);
 
                 if(result.isCommand()) {
                     if (result.getName().equals("quit")) {
+                        System.out.println("Statistics:\nExpressions entered: " + expressionsEntered + "\nSuccessful evaluations: " + successfulEvals + "\nFull evaluations: " + fullEvals);
                         break;
                     } else if (result.getName().equals("vars")) {
                         vars.forEach((k,v) -> System.out.println("key : " + k + "\tvalue : " + v));
@@ -31,23 +39,39 @@ public class Calculator {
                         System.out.println("Assignments successfully cleared!");
                     }
                 } else {
+                    SymbolicExpression evaluatedResult = result.eval(vars);
+                    if (evaluatedResult.isConstant()) {
+                        ++fullEvals;
+                        ++successfulEvals;
+                    } else {
+                        ++successfulEvals;
+                    }
                     System.out.print("parsed expression: " + result + "\n");
-                    System.out.print("evaluated result: " + result.eval(vars) + "\n");
+                    System.out.print("evaluated result: " + evaluatedResult + "\n");
                 }
 
             } catch(SyntaxErrorException e) {
                 System.out.print("Syntax Error: ");
                 System.out.println(e.getMessage());
+                if (successfulEvals > 0) {
+                    --successfulEvals;
+                }
                 continue;
             } catch(IllegalExpressionException e) {
                 System.out.print("Error: ");
                 System.out.println(e.getMessage());
+                if (successfulEvals > 0) {
+                    --successfulEvals;
+                }
                 continue;
             } catch(IOException e) {
                 System.err.println("IO Exception!");
+                if (successfulEvals > 0) {
+                    --successfulEvals;
+                }
                 continue;
             }
-
         }
+        sc.close();
     }
 }
