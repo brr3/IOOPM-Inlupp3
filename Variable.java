@@ -1,4 +1,5 @@
 package org.ioopm.calculator.ast;
+import java.lang.String;
 
 public class Variable extends Atom {
     private String identifier;
@@ -12,9 +13,8 @@ public class Variable extends Atom {
         return this.identifier;
     }
 
-    @Override
     public int hashCode() {
-        java.lang.String.hashCode();
+        return this.identifier.hashCode();
     }
 
     @Override
@@ -34,7 +34,6 @@ public class Variable extends Atom {
     public SymbolicExpression eval(Environment vars) {
         Variable v = new Variable(this.identifier);
         if (vars.containsKey(v)) {
-            System.out.println("variable found");
             if (vars.get(v).isConstant()) {
                     return new Constant(vars.get(v).getValue());
             } else {
