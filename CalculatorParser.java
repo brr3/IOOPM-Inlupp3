@@ -7,16 +7,6 @@ import java.io.IOException;
 
 public class CalculatorParser {
     private StreamTokenizer st;
-    //private StreamTokenizer st = new StreamTokenizer(System.in);
-
-    /*
-    public CalculatorParser() {
-        this.st.eolIsSignificant(true);
-        this.st.ordinaryChar('-');
-        this.st.ordinaryChar('/');
-        //this.st.ordinaryChar('=');
-    }
-    */
 
     public SymbolicExpression parse(String input) throws IOException, SyntaxErrorException {
         st = new StreamTokenizer(new StringReader(input));

@@ -41,24 +41,6 @@ public class ParserDriver {
                 System.err.println("IO Exception!");
                 continue;
             }
-
-
-            /*
-              System.out.print("Please enter an expression: ");
-
-              try {
-              SymbolicExpression result = p.parse();
-              System.out.println("result: " + result);
-              System.out.println("result: " + result.eval(vars));
-              } catch(SyntaxErrorException e) {
-              System.out.print("Syntax Error: ");
-              System.out.println(e.getMessage());
-              } catch(IllegalExpressionException e) {
-              System.out.print("Error: ");
-              System.out.println(e.getMessage());
-              } catch(IOException e) {
-              System.err.println("IO Exception!");
-              }*/
         }
     }
 }
