@@ -53,22 +53,13 @@ public class Calculator {
             } catch(SyntaxErrorException e) {
                 System.out.print("Syntax Error: ");
                 System.out.println(e.getMessage());
-                if (successfulEvals > 0) {
-                    --successfulEvals;
-                }
                 continue;
             } catch(IllegalExpressionException e) {
                 System.out.print("Error: ");
                 System.out.println(e.getMessage());
-                if (successfulEvals > 0) {
-                    --successfulEvals;
-                }
                 continue;
             } catch(IOException e) {
                 System.err.println("IO Exception!");
-                if (successfulEvals > 0) {
-                    --successfulEvals;
-                }
                 continue;
             }
         }
