@@ -40,6 +40,7 @@ public class Calculator {
                     }
                 } else {
                     SymbolicExpression evaluatedResult = result.eval(vars);
+                    vars.put(new Variable("ans"), evaluatedResult);
                     if (evaluatedResult.isConstant()) {
                         ++fullEvals;
                         ++successfulEvals;
@@ -50,7 +51,7 @@ public class Calculator {
                     System.out.print("evaluated result: " + evaluatedResult + "\n");
                 }
 
-            } catch(SyntaxErrorException e) {
+            } catch (SyntaxErrorException e) {
                 System.out.print("Syntax Error: ");
                 System.out.println(e.getMessage());
                 continue;

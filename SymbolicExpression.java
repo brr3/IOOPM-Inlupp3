@@ -15,7 +15,7 @@ public abstract class SymbolicExpression {
     }
 
     public boolean isCommand() {
-      return false;
+        return false;
     }
 
     public String getName() {

@@ -20,11 +20,14 @@ public abstract class Binary extends SymbolicExpression {
         boolean rhsP = this.rhs.getPriority() < this.getPriority();
         if (lhsP && rhsP) {
             return "(" + this.lhs.toString() + ") " + this.getName() + " (" + this.rhs.toString() + ")";
-          } else if (lhsP) {
+          }
+          else if (lhsP) {
             return "(" + this.lhs.toString() + ") " + this.getName() + " " + this.rhs.toString();
-          } else if (rhsP) {
+          }
+          else if (rhsP) {
             return this.lhs.toString() + " " + this.getName() + " (" + this.rhs.toString() + ")";
-          } else {
+          }
+          else {
             return this.lhs.toString() + " " + this.getName() + " " + this.rhs.toString();
           }
     }
