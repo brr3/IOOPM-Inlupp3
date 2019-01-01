@@ -11,3 +11,7 @@ Run program:
 Run tests:
 
 `make test`
+
+Authors:
+Bruno Rees
+Mattias Mineur
