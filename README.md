@@ -13,5 +13,4 @@ Run tests:
 `make test`
 
 Authors:
-Bruno Rees
-Mattias Mineur
+Bruno Rees, Mattias Mineur
