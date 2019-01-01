@@ -2,12 +2,12 @@
 
 Compile:
 
-´make all´
+`make all`
 
 Run program:
 
-´make run´
+`make run`
 
 Run tests:
 
-´make test´
+`make test`
